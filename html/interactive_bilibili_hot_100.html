@@ -1,0 +1,2612 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>简单存档 | 简单存档</title><meta name="author" content="Sei Shu"><meta name="copyright" content="Sei Shu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Bilibili 热榜 Top100 · 交互数据分析                 :root {       --bg: #f5f7fa;       --fg: #2c3e50;       --accent1: #64b5f6;       &#x2F;* Blue *&#x2F;       --accent2: #1976d2;       &#x2F;* Darker Blue *&#x2F;">
+<meta property="og:type" content="website">
+<meta property="og:title" content="简单存档">
+<meta property="og:url" content="http://example.com/html/interactive_bilibili_hot_100.html">
+<meta property="og:site_name" content="简单存档">
+<meta property="og:description" content="Bilibili 热榜 Top100 · 交互数据分析                 :root {       --bg: #f5f7fa;       --fg: #2c3e50;       --accent1: #64b5f6;       &#x2F;* Blue *&#x2F;       --accent2: #1976d2;       &#x2F;* Darker Blue *&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.png">
+<meta property="article:published_time" content="2025-06-05T11:35:35.819Z">
+<meta property="article:modified_time" content="2025-06-05T11:35:35.819Z">
+<meta property="article:author" content="Sei Shu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/html/interactive_bilibili_hot_100.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '简单存档',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">简单存档</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title"></h1></div></header><main class="layout" id="content-inner"><div id="page"><div class="container" id="article-container"><!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bilibili 热榜 Top100 · 交互数据分析</title>
+  <script src="echarts.min.js"></script>
+  <script src="macarons.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --fg: #2c3e50;
+      --accent1: #64b5f6;
+      /* Blue */
+      --accent2: #1976d2;
+      /* Darker Blue */
+      --neutral: #95a5a6;
+      --heatmap-color-start: #e6f7ff;
+      /* Lightest blue for heatmap */
+      --heatmap-color-end: var(--accent2);
+      /* Darkest blue for heatmap */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh
+    }
+
+    header {
+      padding: 1.2rem 1rem .5rem;
+      text-align: center
+    }
+
+    header h1 {
+      font-size: 1.9rem;
+      margin-bottom: .4rem
+    }
+
+    nav {
+      display: flex;
+      gap: .7rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0 .5rem;
+    }
+
+    .btn {
+      padding: .5rem 1.4rem;
+      border: none;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      color: #fff;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: .25s;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn:hover,
+    .btn.active {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .15)
+    }
+
+    #chart {
+      width: 95%;
+      max-width: 1200px;
+      height: 600px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, .08);
+      margin: 1rem 0;
+      padding: .4rem
+    }
+
+    #tableControls {
+      width: 95%;
+      max-width: 1200px;
+      margin: 0.5rem auto;
+      padding: 0.75rem 1rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, .06);
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    #tableControls label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9em;
+    }
+
+    #tableControls select,
+    #tableControls input[type="text"] {
+      padding: .4rem .8rem;
+      border: 1px solid var(--accent1);
+      border-radius: 8px;
+      font-size: .85rem;
+      min-width: 150px;
+    }
+
+    #tableControls input[type="text"] {
+      flex-grow: 1;
+      max-width: 300px;
+    }
+
+
+    #tableWrap {
+      width: 95%;
+      max-width: 1200px;
+      margin-bottom: 1.2rem;
+      overflow-x: auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, .06);
+      padding: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .85rem
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid #eee;
+      padding: .45rem .6rem;
+      text-align: left
+    }
+
+    th {
+      background: var(--accent1);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    tbody tr:hover {
+      background: #f1f7ff
+    }
+
+    tbody tr {
+      cursor: pointer;
+    }
+
+
+    footer {
+      font-size: .78rem;
+      opacity: .65;
+      margin-bottom: 1rem;
+      text-align: center
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 8% auto;
+      padding: 25px;
+      border-radius: 10px;
+      width: 85%;
+      max-width: 700px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-close-btn {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+
+    .modal-close-btn:hover,
+    .modal-close-btn:focus {
+      color: #333;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+      color: var(--accent2);
+      border-bottom: 2px solid var(--accent1);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      font-size: 1.5em;
+    }
+
+    .modal-content p {
+      margin: 10px 0;
+      line-height: 1.6;
+      font-size: 0.95em;
+    }
+
+    .modal-content p strong {
+      color: var(--accent2);
+      min-width: 80px;
+      display: inline-block;
+    }
+
+    .modal-content a.video-link-button {
+      color: #fff;
+      background-color: var(--accent1);
+      padding: 8px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+      transition: background-color 0.2s;
+    }
+
+    .modal-content a.video-link-button:hover {
+      background-color: var(--accent2);
+    }
+
+    #modalVideoList {
+      list-style-type: none;
+      padding-left: 0;
+      max-height: 350px;
+      overflow-y: auto;
+      font-size: 0.9em;
+    }
+
+    #modalVideoList li {
+      padding: 8px 5px;
+      border-bottom: 1px solid #eee;
+    }
+
+    #modalVideoList li:last-child {
+      border-bottom: none;
+    }
+
+    #modalVideoList li strong {
+      display: block;
+      color: var(--fg);
+      margin-bottom: 3px;
+    }
+
+    #modalVideoList li span.up-name,
+    #modalVideoList li span.play-count {
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    #modalVideoList li a.list-video-link {
+      font-size: 0.9em;
+      margin-left: 10px;
+      color: var(--accent1);
+      text-decoration: none;
+    }
+
+    #modalVideoList li a.list-video-link:hover {
+      color: var(--accent2);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Bilibili 热榜 Top100 · 交互可视化</h1>
+    <nav id="switcher">
+      <button class="btn active" data-chart="catBar">分区柱状</button>
+      <button class="btn" data-chart="catPie">分区玫瑰</button>
+      <button class="btn" data-chart="top10">播放 Top10</button>
+      <button class="btn" data-chart="scatter">播放 ✕ 点赞</button>
+      <button class="btn" data-chart="bubble">点赞 ✕ 投币</button>
+      <button class="btn" data-chart="duration">时长直方</button>
+      <button class="btn" data-chart="publishTimeHeatmap">发布时间热力图</button>
+      <button class="btn" data-chart="categoryEngagementRates">分区互动效率</button>
+      <button class="btn" data-chart="likeCoinRatioDist">点赞投币比分布</button>
+      <button class="btn" data-chart="publishDayPlays">发布日均播放</button>
+      <button class="btn" data-chart="durationAvgPlays">时长区间均播</button>
+    </nav>
+  </header>
+  <div id="chart"></div>
+
+  <div id="videoModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="modal-close-btn">&times;</span>
+      <div id="modalSingleVideoDetail">
+        <h2 id="modalVideoTitleHeadingSingle">视频详情</h2>
+        <p><strong>标题:</strong> <span id="modalVideoTitle"></span></p>
+        <p><strong>UP主:</strong> <span id="modalUpName"></span></p>
+        <p><strong>播放:</strong> <span id="modalPlays"></span></p>
+        <p><strong>点赞:</strong> <span id="modalLikes"></span></p>
+        <p><strong>投币:</strong> <span id="modalCoins"></span></p>
+        <p><strong>时长:</strong> <span id="modalDuration"></span></p>
+        <p><strong>分区:</strong> <span id="modalCategory"></span></p>
+        <p><strong>发布时间:</strong> <span id="modalPublishTime"></span></p>
+        <p><a id="modalLink" href="#" target="_blank" class="video-link-button">观看视频</a></p>
+      </div>
+      <div id="modalVideoListDetail" style="display:none;">
+        <h2 id="modalListTitle">视频列表</h2>
+        <ul id="modalVideoList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="tableControls">
+    <label>按分区筛选: <select id="catSel"></select></label>
+    <label>搜索(标题/UP主): <input type="text" id="textSearchInput" placeholder="输入关键词..."></label>
+  </div>
+  <div id="tableWrap">
+    <table id="dataTable"></table>
+  </div>
+
+  <footer>离线单页 · 需要本地 echarts.min.js / macarons.js · 在 DATA 区粘贴 100 条 JSON 即可体验全部交互</footer>
+
+  <script>
+    /*********** 粘贴数据  ***********/
+    const DATA = [
+        {
+          "排名": 1,
+          "标题": "再不睡觉，就该刷到我的视频了哦~",
+          "BV号": "BV1iT7DzaEvZ",
+          "UP主": "田一名sir",
+          "UP主ID": 477676711,
+          "分区": "翻唱",
+          "时长": "00:42",
+          "播放": 3749381,
+          "点赞": 511713,
+          "投币": 55690,
+          "点赞\/投币": 9.19,
+          "发布时间": "2025-06-02 20:51:08",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1iT7DzaEvZ"
+        },
+        {
+          "排名": 2,
+          "标题": "今天做个大项目，1500元做切糕摆摊，感觉这把能赚了",
+          "BV号": "BV1Sx7DzJEg3",
+          "UP主": "李维刚的日常",
+          "UP主ID": 3493260093819171,
+          "分区": "美食侦探",
+          "时长": "10:32",
+          "播放": 2513854,
+          "点赞": 286152,
+          "投币": 127608,
+          "点赞\/投币": 2.24,
+          "发布时间": "2025-06-02 19:03:24",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Sx7DzJEg3"
+        },
+        {
+          "排名": 3,
+          "标题": "世界上最疯狂的摄影棚？我们参观了野兽先生工作室！",
+          "BV号": "BV1aJ7rzaE9C",
+          "UP主": "影视飓风",
+          "UP主ID": 946974,
+          "分区": "数码",
+          "时长": "30:34",
+          "播放": 4109318,
+          "点赞": 268992,
+          "投币": 125541,
+          "点赞\/投币": 2.14,
+          "发布时间": "2025-06-02 11:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1aJ7rzaE9C"
+        },
+        {
+          "排名": 4,
+          "标题": "15个简单有趣的小食谱～有手就会系列",
+          "BV号": "BV1U97HzqEGt",
+          "UP主": "胡仔一人食",
+          "UP主ID": 17495873,
+          "分区": "美食制作",
+          "时长": "08:20",
+          "播放": 2839585,
+          "点赞": 309240,
+          "投币": 22433,
+          "点赞\/投币": 13.79,
+          "发布时间": "2025-06-01 17:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1U97HzqEGt"
+        },
+        {
+          "排名": 5,
+          "标题": "杀害“环保少女”，以色列准备好了吗？",
+          "BV号": "BV1yKT7zoEMi",
+          "UP主": "波士顿圆脸",
+          "UP主ID": 346563107,
+          "分区": "社科·法律·心理",
+          "时长": "13:03",
+          "播放": 2765984,
+          "点赞": 159095,
+          "投币": 33955,
+          "点赞\/投币": 4.69,
+          "发布时间": "2025-06-04 19:23:22",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1yKT7zoEMi"
+        },
+        {
+          "排名": 6,
+          "标题": "特厨探店 |厨师的职责到底是什么？—鲁菜根",
+          "BV号": "BV1Ep7KzCE34",
+          "UP主": "特厨隋坡",
+          "UP主ID": 3546888255048212,
+          "分区": "美食侦探",
+          "时长": "03:07",
+          "播放": 3357742,
+          "点赞": 289183,
+          "投币": 51446,
+          "点赞\/投币": 5.62,
+          "发布时间": "2025-06-02 11:30:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Ep7KzCE34"
+        },
+        {
+          "排名": 7,
+          "标题": "今日我若冷眼旁观，他日祸临己身，则无人为我摇旗呐喊！",
+          "BV号": "BV1x27mzME6G",
+          "UP主": "高司令-速凌电竞",
+          "UP主ID": 3546875066059052,
+          "分区": "单机游戏",
+          "时长": "03:24",
+          "播放": 1724620,
+          "点赞": 144954,
+          "投币": 28972,
+          "点赞\/投币": 5.0,
+          "发布时间": "2025-06-02 18:29:32",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1x27mzME6G"
+        },
+        {
+          "排名": 8,
+          "标题": "原本我以为我是只猴子，直到别人说我是人",
+          "BV号": "BV1yW72zNEhF",
+          "UP主": "企鹅怪谈",
+          "UP主ID": 3546782881548808,
+          "分区": "同人·手书",
+          "时长": "14:42",
+          "播放": 5720343,
+          "点赞": 50135,
+          "投币": 4580,
+          "点赞\/投币": 10.95,
+          "发布时间": "2025-06-02 12:23:14",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1yW72zNEhF"
+        },
+        {
+          "排名": 9,
+          "标题": "伟大的妈妈，自己淋着雨，还不忘给人撑伞！",
+          "BV号": "BV1uE7UzjEpz",
+          "UP主": "爱画画的子衿",
+          "UP主ID": 508752914,
+          "分区": "亲子",
+          "时长": "05:21",
+          "播放": 661724,
+          "点赞": 140589,
+          "投币": 188660,
+          "点赞\/投币": 0.75,
+          "发布时间": "2025-06-02 17:44:28",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1uE7UzjEpz"
+        },
+        {
+          "排名": 10,
+          "标题": "一镜到底全记录！沉浸式感受佛山叠滘“龙舟漂移”",
+          "BV号": "BV1Ho7SzuERg",
+          "UP主": "央视新闻",
+          "UP主ID": 456664753,
+          "分区": "日常",
+          "时长": "01:54",
+          "播放": 1936607,
+          "点赞": 217612,
+          "投币": 10253,
+          "点赞\/投币": 21.22,
+          "发布时间": "2025-06-02 21:49:25",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Ho7SzuERg"
+        },
+        {
+          "排名": 11,
+          "标题": "讨厌选择，全买了",
+          "BV号": "BV1zH7LzNEew",
+          "UP主": "杜海皇",
+          "UP主ID": 178029850,
+          "分区": "搞笑",
+          "时长": "16:15",
+          "播放": 1409084,
+          "点赞": 95456,
+          "投币": 37184,
+          "点赞\/投币": 2.57,
+          "发布时间": "2025-06-02 18:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1zH7LzNEew"
+        },
+        {
+          "排名": 12,
+          "标题": "精神需要有所寄托，愿长江七号能保佑小男孩。",
+          "BV号": "BV16c7rzyEXB",
+          "UP主": "超神李信_对线生活",
+          "UP主ID": 560480612,
+          "分区": "日常",
+          "时长": "04:17",
+          "播放": 1392614,
+          "点赞": 149852,
+          "投币": 78639,
+          "点赞\/投币": 1.91,
+          "发布时间": "2025-06-01 23:52:23",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV16c7rzyEXB"
+        },
+        {
+          "排名": 13,
+          "标题": "《崩坏：星穹铁道》走近星穹——「赛飞儿：财从八方来！」",
+          "BV号": "BV1mf72zgEPx",
+          "UP主": "崩坏星穹铁道",
+          "UP主ID": 1340190821,
+          "分区": "手机游戏",
+          "时长": "08:40",
+          "播放": 1214540,
+          "点赞": 118227,
+          "投币": 23850,
+          "点赞\/投币": 4.96,
+          "发布时间": "2025-06-03 12:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1mf72zgEPx"
+        },
+        {
+          "排名": 14,
+          "标题": "简单好玩儿！让同学们欢呼不已的折纸直升机你在学校玩过吗？",
+          "BV号": "BV1a473zLExH",
+          "UP主": "纸飞君",
+          "UP主ID": 1317550552,
+          "分区": "手工",
+          "时长": "01:21",
+          "播放": 9663444,
+          "点赞": 242027,
+          "投币": 26440,
+          "点赞\/投币": 9.15,
+          "发布时间": "2025-06-01 12:29:18",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1a473zLExH"
+        },
+        {
+          "排名": 15,
+          "标题": "【p1-3】我明明是最年轻的武道天才 却被视为弟弟的备用器官",
+          "BV号": "BV1Do7UzJE3m",
+          "UP主": "大王动漫i",
+          "UP主ID": 3546785286982613,
+          "分区": "国产原创相关",
+          "时长": "17:05",
+          "播放": 2892948,
+          "点赞": 13029,
+          "投币": 3558,
+          "点赞\/投币": 3.66,
+          "发布时间": "2025-06-02 14:19:16",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Do7UzJE3m"
+        },
+        {
+          "排名": 16,
+          "标题": "古典哈基米：野哈飞舞",
+          "BV号": "BV1LJ7ezJE59",
+          "UP主": "kizznoluv",
+          "UP主ID": 31760507,
+          "分区": "音乐综合",
+          "时长": "01:12",
+          "播放": 963668,
+          "点赞": 157034,
+          "投币": 24854,
+          "点赞\/投币": 6.32,
+          "发布时间": "2025-06-03 23:04:23",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1LJ7ezJE59"
+        },
+        {
+          "排名": 17,
+          "标题": "做视频10年，我想聊聊自媒体反直觉的真相..",
+          "BV号": "BV1Fr7DzuEnd",
+          "UP主": "-LKs-",
+          "UP主ID": 125526,
+          "分区": "财经商业",
+          "时长": "13:28",
+          "播放": 913421,
+          "点赞": 79341,
+          "投币": 45394,
+          "点赞\/投币": 1.75,
+          "发布时间": "2025-06-02 19:48:10",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Fr7DzuEnd"
+        },
+        {
+          "排名": 18,
+          "标题": "中国人自己的蝙蝠侠",
+          "BV号": "BV1MA7Kz4EPh",
+          "UP主": "智勇双全富贵君",
+          "UP主ID": 226231535,
+          "分区": "搞笑",
+          "时长": "03:58",
+          "播放": 3918033,
+          "点赞": 168013,
+          "投币": 5917,
+          "点赞\/投币": 28.39,
+          "发布时间": "2025-06-01 17:30:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1MA7Kz4EPh"
+        },
+        {
+          "排名": 19,
+          "标题": "和老人聊天打电话说什么",
+          "BV号": "BV1bp7Nz9EP3",
+          "UP主": "刘大大大涛",
+          "UP主ID": 702483062,
+          "分区": "社科·法律·心理",
+          "时长": "01:00",
+          "播放": 1755865,
+          "点赞": 218526,
+          "投币": 21451,
+          "点赞\/投币": 10.19,
+          "发布时间": "2025-06-01 19:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1bp7Nz9EP3"
+        },
+        {
+          "排名": 20,
+          "标题": "每年高考固定刷新的NPC",
+          "BV号": "BV1XL78zvE6z",
+          "UP主": "川子12138",
+          "UP主ID": 282834216,
+          "分区": "搞笑",
+          "时长": "01:00",
+          "播放": 2506095,
+          "点赞": 228578,
+          "投币": 2265,
+          "点赞\/投币": 100.92,
+          "发布时间": "2025-06-03 15:51:37",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1XL78zvE6z"
+        },
+        {
+          "排名": 21,
+          "标题": "你可能不认识我，但你一定看过我化的妆~",
+          "BV号": "BV1Gu7Gz2EVy",
+          "UP主": "杨树云古典妆造传承",
+          "UP主ID": 495807284,
+          "分区": "美妆护肤",
+          "时长": "00:12",
+          "播放": 2298731,
+          "点赞": 377031,
+          "投币": 8803,
+          "点赞\/投币": 42.83,
+          "发布时间": "2025-06-01 17:30:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Gu7Gz2EVy"
+        },
+        {
+          "排名": 22,
+          "标题": "《绝区零》仪玄角色PV | 今日卦象：宜下山",
+          "BV号": "BV1xGTJzaEp3",
+          "UP主": "绝区零",
+          "UP主ID": 1636034895,
+          "分区": "手机游戏",
+          "时长": "15:09",
+          "播放": 755188,
+          "点赞": 96359,
+          "投币": 48664,
+          "点赞\/投币": 1.98,
+          "发布时间": "2025-06-05 12:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1xGTJzaEp3"
+        },
+        {
+          "排名": 23,
+          "标题": "加固溪流九曲十八弯，移栽绿植重现往日生态，河狸先生义不容辞！",
+          "BV号": "BV1EC7UzFE3R",
+          "UP主": "抓紧长长长呀",
+          "UP主ID": 3493134996605268,
+          "分区": "三农",
+          "时长": "07:28",
+          "播放": 1507760,
+          "点赞": 120474,
+          "投币": 15900,
+          "点赞\/投币": 7.58,
+          "发布时间": "2025-06-02 16:27:55",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1EC7UzFE3R"
+        },
+        {
+          "排名": 24,
+          "标题": "只道当时是寻常 祝大家端午安康",
+          "BV号": "BV1iK7NzvE4v",
+          "UP主": "为官奏乐",
+          "UP主ID": 1167991383,
+          "分区": "汪星人",
+          "时长": "13:12",
+          "播放": 1765845,
+          "点赞": 186174,
+          "投币": 50665,
+          "点赞\/投币": 3.67,
+          "发布时间": "2025-05-31 19:15:15",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1iK7NzvE4v"
+        },
+        {
+          "排名": 25,
+          "标题": "六级听力纯蒙上140，不能保证你上150,130、140不是问题",
+          "BV号": "BV1Na7DzLEG9",
+          "UP主": "六级xie教头头",
+          "UP主ID": 645830194,
+          "分区": "校园学习",
+          "时长": "22:05",
+          "播放": 570815,
+          "点赞": 43643,
+          "投币": 19419,
+          "点赞\/投币": 2.25,
+          "发布时间": "2025-06-03 00:53:50",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Na7DzLEG9"
+        },
+        {
+          "排名": 26,
+          "标题": "开了5天800公里！007GT低配高配怎么选？",
+          "BV号": "BV1VY7bzNE2U",
+          "UP主": "难评H2S",
+          "UP主ID": 3546901947353448,
+          "分区": "新能源车",
+          "时长": "19:52",
+          "播放": 612016,
+          "点赞": 71378,
+          "投币": 93663,
+          "点赞\/投币": 0.76,
+          "发布时间": "2025-06-03 16:48:08",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1VY7bzNE2U"
+        },
+        {
+          "排名": 27,
+          "标题": "茫崖启程东归 尕斯库勒湖畔 晒晒太阳 充充电",
+          "BV号": "BV19Q7UzXE1v",
+          "UP主": "赵朔西行漫记",
+          "UP主ID": 99530095,
+          "分区": "出行",
+          "时长": "25:18",
+          "播放": 416466,
+          "点赞": 69377,
+          "投币": 69831,
+          "点赞\/投币": 0.99,
+          "发布时间": "2025-06-02 18:01:58",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV19Q7UzXE1v"
+        },
+        {
+          "排名": 28,
+          "标题": "从中职到北大，我走了八年。",
+          "BV号": "BV1tk7SzUENg",
+          "UP主": "29zzz_",
+          "UP主ID": 27660440,
+          "分区": "日常",
+          "时长": "13:43",
+          "播放": 821546,
+          "点赞": 51241,
+          "投币": 34489,
+          "点赞\/投币": 1.49,
+          "发布时间": "2025-06-02 23:05:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1tk7SzUENg"
+        },
+        {
+          "排名": 29,
+          "标题": "我找出他们最尴尬的视频，公开处刑!!!结果…【青旅团建篇】",
+          "BV号": "BV1pv7zzCEMG",
+          "UP主": "宝剑嫂",
+          "UP主ID": 113362335,
+          "分区": "搞笑",
+          "时长": "07:41",
+          "播放": 1731226,
+          "点赞": 111763,
+          "投币": 36060,
+          "点赞\/投币": 3.1,
+          "发布时间": "2025-06-02 10:05:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1pv7zzCEMG"
+        },
+        {
+          "排名": 30,
+          "标题": "【登陆少年】2025 TOP登陆少年组合·无所畏计划·演唱会·苏新皓个人舞台练习室",
+          "BV号": "BV1ew7GzHE8Y",
+          "UP主": "登陆少年组合",
+          "UP主ID": 3546657239075200,
+          "分区": "明星综合",
+          "时长": "05:07",
+          "播放": 907241,
+          "点赞": 53994,
+          "投币": 51804,
+          "点赞\/投币": 1.04,
+          "发布时间": "2025-06-01 14:20:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1ew7GzHE8Y"
+        },
+        {
+          "排名": 31,
+          "标题": "假如所有暖心故事发生在同一天",
+          "BV号": "BV1R378zMERU",
+          "UP主": "陆志廉不才",
+          "UP主ID": 69109214,
+          "分区": "小剧场",
+          "时长": "06:58",
+          "播放": 796150,
+          "点赞": 83009,
+          "投币": 5370,
+          "点赞\/投币": 15.46,
+          "发布时间": "2025-06-03 16:08:30",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1R378zMERU"
+        },
+        {
+          "排名": 32,
+          "标题": "韩国总统8年换4个！内斗、财阀、中美博弈，李在明能抗住吗？",
+          "BV号": "BV1daTJzmELE",
+          "UP主": "小王Albert",
+          "UP主ID": 1140672573,
+          "分区": "人文历史",
+          "时长": "22:40",
+          "播放": 1482652,
+          "点赞": 79358,
+          "投币": 23106,
+          "点赞\/投币": 3.43,
+          "发布时间": "2025-06-04 21:26:18",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1daTJzmELE"
+        },
+        {
+          "排名": 33,
+          "标题": "亲身经历魔法对轰 为什么我说蒋雨融的哈佛毕业演讲假大空",
+          "BV号": "BV1wL7SzMEcr",
+          "UP主": "Ino千金",
+          "UP主ID": 3250517,
+          "分区": "校园学习",
+          "时长": "07:21",
+          "播放": 825813,
+          "点赞": 70466,
+          "投币": 37015,
+          "点赞\/投币": 1.9,
+          "发布时间": "2025-06-02 22:56:47",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1wL7SzMEcr"
+        },
+        {
+          "排名": 34,
+          "标题": "众多男博主借“护送女孩回家”拍恶搞段子，“轻轻放下”等于纵容违法",
+          "BV号": "BV1d37zzFEnK",
+          "UP主": "大象新闻",
+          "UP主ID": 522653994,
+          "分区": "社会",
+          "时长": "01:16",
+          "播放": 1070422,
+          "点赞": 188406,
+          "投币": 27086,
+          "点赞\/投币": 6.96,
+          "发布时间": "2025-06-04 12:32:39",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1d37zzFEnK"
+        },
+        {
+          "排名": 35,
+          "标题": "文化盛宴！一期253分钟带你看完中国顶级国宝！",
+          "BV号": "BV1EU7rzkEGd",
+          "UP主": "浪花姜",
+          "UP主ID": 102584256,
+          "分区": "人文历史",
+          "时长": "04:12:15",
+          "播放": 937534,
+          "点赞": 87569,
+          "投币": 104377,
+          "点赞\/投币": 0.84,
+          "发布时间": "2025-06-01 22:04:34",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1EU7rzkEGd"
+        },
+        {
+          "排名": 36,
+          "标题": "2025高考数学安心课",
+          "BV号": "BV1YvTJz1EdF",
+          "UP主": "一数",
+          "UP主ID": 14229967,
+          "分区": "校园学习",
+          "时长": "01:02:18",
+          "播放": 590714,
+          "点赞": 51862,
+          "投币": 19703,
+          "点赞\/投币": 2.63,
+          "发布时间": "2025-06-04 21:37:06",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1YvTJz1EdF"
+        },
+        {
+          "排名": 37,
+          "标题": "《 学 校 说 学 不 了 就 滚 》（？）",
+          "BV号": "BV1AJ7MzWEu8",
+          "UP主": "在下小禾丶",
+          "UP主ID": 1788673077,
+          "分区": "搞笑",
+          "时长": "09:14",
+          "播放": 1804751,
+          "点赞": 113815,
+          "投币": 14922,
+          "点赞\/投币": 7.63,
+          "发布时间": "2025-06-01 10:30:04",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1AJ7MzWEu8"
+        },
+        {
+          "排名": 38,
+          "标题": "《学 生 抽 象 行 为》",
+          "BV号": "BV1ma7azaEci",
+          "UP主": "进击的金厂长",
+          "UP主ID": 321422126,
+          "分区": "搞笑",
+          "时长": "02:48",
+          "播放": 1234525,
+          "点赞": 110159,
+          "投币": 6361,
+          "点赞\/投币": 17.32,
+          "发布时间": "2025-06-03 17:32:43",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1ma7azaEci"
+        },
+        {
+          "排名": 39,
+          "标题": "泣不成声：巴勒斯坦代表情绪崩溃，美国医生控诉美国政府",
+          "BV号": "BV1TD7bzXEu4",
+          "UP主": "小Q不是导盲犬",
+          "UP主ID": 546189,
+          "分区": "社科·法律·心理",
+          "时长": "27:32",
+          "播放": 1101422,
+          "点赞": 72471,
+          "投币": 19433,
+          "点赞\/投币": 3.73,
+          "发布时间": "2025-06-03 17:23:36",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1TD7bzXEu4"
+        },
+        {
+          "排名": 40,
+          "标题": "11万人打出9.4分，年度口碑最炸剧集！40000字带你一口气看完《奇巧出租车》全集+广播剧+剧场版",
+          "BV号": "BV1NH7GzBEc1",
+          "UP主": "小片片说大片",
+          "UP主ID": 10119428,
+          "分区": "影视杂谈",
+          "时长": "01:55:55",
+          "播放": 1805969,
+          "点赞": 108449,
+          "投币": 66874,
+          "点赞\/投币": 1.62,
+          "发布时间": "2025-06-01 18:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1NH7GzBEc1"
+        },
+        {
+          "排名": 41,
+          "标题": "合租惊魂，我真是服了",
+          "BV号": "BV1pW7czqE2e",
+          "UP主": "李万基fit",
+          "UP主ID": 3546638173866146,
+          "分区": "搞笑",
+          "时长": "03:15",
+          "播放": 2467954,
+          "点赞": 170450,
+          "投币": 8173,
+          "点赞\/投币": 20.86,
+          "发布时间": "2025-05-31 21:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1pW7czqE2e"
+        },
+        {
+          "排名": 42,
+          "标题": "“体面”婚姻被粉丝扒个底裤朝天，内娱独一份的拥挤爱情【刘诗诗吴奇隆离婚疑云】",
+          "BV号": "BV1cG7mzaEqp",
+          "UP主": "一只吐槽圆",
+          "UP主ID": 20457232,
+          "分区": "娱乐杂谈",
+          "时长": "22:33",
+          "播放": 3682686,
+          "点赞": 79328,
+          "投币": 6417,
+          "点赞\/投币": 12.36,
+          "发布时间": "2025-06-02 10:06:34",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1cG7mzaEqp"
+        },
+        {
+          "排名": 43,
+          "标题": "【蜕变宝典】：一探究竟实战的操作丝滑度如何提升，助你登神",
+          "BV号": "BV1hv7mz1Ec7",
+          "UP主": "和平精英KY",
+          "UP主ID": 691091556,
+          "分区": "手机游戏",
+          "时长": "03:54",
+          "播放": 768125,
+          "点赞": 8537,
+          "投币": 3120,
+          "点赞\/投币": 2.74,
+          "发布时间": "2025-06-02 18:10:47",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1hv7mz1Ec7"
+        },
+        {
+          "排名": 44,
+          "标题": "月底了手头有点紧",
+          "BV号": "BV1Q97UzHE3J",
+          "UP主": "阿多Adonis",
+          "UP主ID": 440832200,
+          "分区": "日常",
+          "时长": "03:10",
+          "播放": 1019377,
+          "点赞": 36289,
+          "投币": 2752,
+          "点赞\/投币": 13.19,
+          "发布时间": "2025-06-02 16:55:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Q97UzHE3J"
+        },
+        {
+          "排名": 45,
+          "标题": "《 血 脉 牵 引 》一次转身，一场跨越生死的回应",
+          "BV号": "BV1xj7kzWEC6",
+          "UP主": "即刻自然说",
+          "UP主ID": 149574778,
+          "分区": "动物二创",
+          "时长": "05:49",
+          "播放": 2809965,
+          "点赞": 118611,
+          "投币": 7103,
+          "点赞\/投币": 16.7,
+          "发布时间": "2025-06-01 20:29:44",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1xj7kzWEC6"
+        },
+        {
+          "排名": 46,
+          "标题": "《doro 编年史》行为艺术的背后，是英雄主义。",
+          "BV号": "BV1av7LzxENb",
+          "UP主": "卡洛Calo",
+          "UP主ID": 9353567,
+          "分区": "搞笑",
+          "时长": "07:53",
+          "播放": 2984796,
+          "点赞": 317444,
+          "投币": 79336,
+          "点赞\/投币": 4.0,
+          "发布时间": "2025-05-31 10:15:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1av7LzxENb"
+        },
+        {
+          "排名": 47,
+          "标题": "挪威人来中国前的必修课就是学会蹲坑",
+          "BV号": "BV1QXTjziEsM",
+          "UP主": "挪威老王",
+          "UP主ID": 286142707,
+          "分区": "出行",
+          "时长": "02:28",
+          "播放": 2536262,
+          "点赞": 114243,
+          "投币": 6405,
+          "点赞\/投币": 17.84,
+          "发布时间": "2025-06-04 18:43:34",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1QXTjziEsM"
+        },
+        {
+          "排名": 48,
+          "标题": "以防你没看过曼波玩恐怖地图",
+          "BV号": "BV1ob7KzBE3R",
+          "UP主": "卖冰淇淋的容器猫",
+          "UP主ID": 15467854,
+          "分区": "单机游戏",
+          "时长": "03:05",
+          "播放": 1754424,
+          "点赞": 228332,
+          "投币": 18531,
+          "点赞\/投币": 12.32,
+          "发布时间": "2025-05-31 22:38:05",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1ob7KzBE3R"
+        },
+        {
+          "排名": 49,
+          "标题": "打开书本里的世界VLOG｜我在拉斯维加斯体验到全球最魔幻的罪恶之城！",
+          "BV号": "BV1dK7qzREWy",
+          "UP主": "何香蓓Betty",
+          "UP主ID": 385786354,
+          "分区": "出行",
+          "时长": "05:00",
+          "播放": 829697,
+          "点赞": 92999,
+          "投币": 8973,
+          "点赞\/投币": 10.36,
+          "发布时间": "2025-06-04 09:18:34",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1dK7qzREWy"
+        },
+        {
+          "排名": 50,
+          "标题": "这是PPT的极限了吗！",
+          "BV号": "BV19p7azBEcW",
+          "UP主": "听风PPT",
+          "UP主ID": 358716763,
+          "分区": "设计·创意",
+          "时长": "01:18",
+          "播放": 973585,
+          "点赞": 98050,
+          "投币": 36417,
+          "点赞\/投币": 2.69,
+          "发布时间": "2025-06-03 21:25:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV19p7azBEcW"
+        },
+        {
+          "排名": 51,
+          "标题": "三秒十八刀，这就是霸道的力量吗",
+          "BV号": "BV1dV7azyEVz",
+          "UP主": "尴尬的铁根er",
+          "UP主ID": 405370021,
+          "分区": "网络游戏",
+          "时长": "04:02",
+          "播放": 1982723,
+          "点赞": 91508,
+          "投币": 2212,
+          "点赞\/投币": 41.37,
+          "发布时间": "2025-06-03 19:31:28",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1dV7azyEVz"
+        },
+        {
+          "排名": 52,
+          "标题": "电饭煲怎么知道饭熟了？电饭煲的工作原理！",
+          "BV号": "BV1YV7DztEDx",
+          "UP主": "小芒星灬",
+          "UP主ID": 3546602430007435,
+          "分区": "科学科普",
+          "时长": "00:42",
+          "播放": 1855880,
+          "点赞": 131392,
+          "投币": 11034,
+          "点赞\/投币": 11.91,
+          "发布时间": "2025-06-02 20:43:41",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1YV7DztEDx"
+        },
+        {
+          "排名": 53,
+          "标题": "你妈是武道基金高层管理，你爸是武道战力天花板，而你却觉醒出最垃圾的C级天赋！？",
+          "BV号": "BV1iD7rz3Eq5",
+          "UP主": "爆爆爆火",
+          "UP主ID": 3546561342605518,
+          "分区": "国产原创相关",
+          "时长": "01:05:01",
+          "播放": 730537,
+          "点赞": 8006,
+          "投币": 2361,
+          "点赞\/投币": 3.39,
+          "发布时间": "2025-06-02 11:50:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1iD7rz3Eq5"
+        },
+        {
+          "排名": 54,
+          "标题": "哈哈哈哈水弹挑战",
+          "BV号": "BV1D27gzkEGW",
+          "UP主": "小歪很拽",
+          "UP主ID": 551931509,
+          "分区": "搞笑",
+          "时长": "02:00",
+          "播放": 4467622,
+          "点赞": 88466,
+          "投币": 3270,
+          "点赞\/投币": 27.05,
+          "发布时间": "2025-06-01 15:13:21",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1D27gzkEGW"
+        },
+        {
+          "排名": 55,
+          "标题": "内娱嫂嫂亲自讲述，男明星的爱情把戏。第一期1\/3-微综嫂嫂请讲正式上线。辛雨锡司晓迪“对账式”谈话。当爱情逝去，请你千千万万次救自己于水火。#嫂嫂请讲",
+          "BV号": "BV1SS7gz6EvJ",
+          "UP主": "嫂嫂请讲",
+          "UP主ID": 179147186,
+          "分区": "综艺",
+          "时长": "08:16",
+          "播放": 2603919,
+          "点赞": 74458,
+          "投币": 13534,
+          "点赞\/投币": 5.5,
+          "发布时间": "2025-06-01 15:22:57",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1SS7gz6EvJ"
+        },
+        {
+          "排名": 56,
+          "标题": "“做官，是天下一等一的难事，可做皇帝，更是难得绝无仅有…”",
+          "BV号": "BV1dD7DzwE6T",
+          "UP主": "三颗虾仁",
+          "UP主ID": 3546837552204489,
+          "分区": "人文历史",
+          "时长": "03:10",
+          "播放": 710539,
+          "点赞": 59643,
+          "投币": 6310,
+          "点赞\/投币": 9.45,
+          "发布时间": "2025-06-03 12:01:15",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1dD7DzwE6T"
+        },
+        {
+          "排名": 57,
+          "标题": "氪一万不够塞牙缝，神秘土豪空降榜一，大战一触即发",
+          "BV号": "BV18v7mz1EV7",
+          "UP主": "老芒果OL",
+          "UP主ID": 3546558119283625,
+          "分区": "网络游戏",
+          "时长": "13:18",
+          "播放": 1061423,
+          "点赞": 41232,
+          "投币": 19206,
+          "点赞\/投币": 2.15,
+          "发布时间": "2025-06-02 18:08:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV18v7mz1EV7"
+        },
+        {
+          "排名": 58,
+          "标题": "又是被志刚宠爱的一天",
+          "BV号": "BV19x7ez5EEg",
+          "UP主": "两个脑花CG",
+          "UP主ID": 1417963194,
+          "分区": "搞笑",
+          "时长": "02:07",
+          "播放": 1146768,
+          "点赞": 96769,
+          "投币": 7872,
+          "点赞\/投币": 12.29,
+          "发布时间": "2025-06-03 23:05:54",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV19x7ez5EEg"
+        },
+        {
+          "排名": 59,
+          "标题": "【高端局】“你听过最假的一句话是什么？”",
+          "BV号": "BV1Jb7YzWECR",
+          "UP主": "是青橘啦",
+          "UP主ID": 434404417,
+          "分区": "音乐综合",
+          "时长": "33:28",
+          "播放": 1037373,
+          "点赞": 7037,
+          "投币": 1837,
+          "点赞\/投币": 3.83,
+          "发布时间": "2025-06-04 01:25:47",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Jb7YzWECR"
+        },
+        {
+          "排名": 60,
+          "标题": "可爱的小猫  漂亮的涂鸦  爱做数学题的ta",
+          "BV号": "BV1667zzgE9e",
+          "UP主": "让瓦康康の游戏ai",
+          "UP主ID": 3493120601753789,
+          "分区": "单机游戏",
+          "时长": "05:11",
+          "播放": 1491250,
+          "点赞": 114157,
+          "投币": 4975,
+          "点赞\/投币": 22.95,
+          "发布时间": "2025-06-01 19:31:09",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1667zzgE9e"
+        },
+        {
+          "排名": 61,
+          "标题": "“我放下了利群，离群起来”丨《lemon》-米丁玄师丨纯真烟嗓吉他弹唱丨抽象丨真正的音乐丨米津玄师丨高考丨猎奇",
+          "BV号": "BV13Z7zzZEZc",
+          "UP主": "陈大东瓜",
+          "UP主ID": 269288799,
+          "分区": "翻唱",
+          "时长": "01:42",
+          "播放": 1440050,
+          "点赞": 176666,
+          "投币": 35634,
+          "点赞\/投币": 4.96,
+          "发布时间": "2025-06-01 18:39:03",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV13Z7zzZEZc"
+        },
+        {
+          "排名": 62,
+          "标题": "你愿意用高考满分放弃一个亿吗？",
+          "BV号": "BV1T37kzoE7m",
+          "UP主": "在下左左漫",
+          "UP主ID": 3546841511627381,
+          "分区": "同人·手书",
+          "时长": "06:06",
+          "播放": 3425857,
+          "点赞": 6351,
+          "投币": 1089,
+          "点赞\/投币": 5.83,
+          "发布时间": "2025-06-01 21:52:23",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1T37kzoE7m"
+        },
+        {
+          "排名": 63,
+          "标题": "确实没热度，但总得有人做！（露娜总裁室防守道具）",
+          "BV号": "BV1NU74zjETg",
+          "UP主": "慕夏FPS",
+          "UP主ID": 3546612506823300,
+          "分区": "网络游戏",
+          "时长": "03:26",
+          "播放": 568954,
+          "点赞": 49074,
+          "投币": 10500,
+          "点赞\/投币": 4.67,
+          "发布时间": "2025-06-03 10:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1NU74zjETg"
+        },
+        {
+          "排名": 64,
+          "标题": "“你听过最假的一句话是什么？”",
+          "BV号": "BV1kD7Pz1EhM",
+          "UP主": "想a不到好名字",
+          "UP主ID": 1035330202,
+          "分区": "音乐综合",
+          "时长": "35:56",
+          "播放": 6307393,
+          "点赞": 34932,
+          "投币": 8890,
+          "点赞\/投币": 3.93,
+          "发布时间": "2025-05-31 18:13:32",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1kD7Pz1EhM"
+        },
+        {
+          "排名": 65,
+          "标题": "更阴、更狠、更惨！系列最视觉刺激度最拉满的一部《死神来了2》",
+          "BV号": "BV1Dx7aziEXK",
+          "UP主": "培根悖论唠唠嗑",
+          "UP主ID": 386869863,
+          "分区": "影视杂谈",
+          "时长": "42:41",
+          "播放": 1047892,
+          "点赞": 55825,
+          "投币": 3434,
+          "点赞\/投币": 16.26,
+          "发布时间": "2025-06-03 18:14:34",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Dx7aziEXK"
+        },
+        {
+          "排名": 66,
+          "标题": "如果方大同演唱《珠玉》会是什么感觉？第二弹！",
+          "BV号": "BV1TR7YziE5m",
+          "UP主": "okwps123",
+          "UP主ID": 8652729,
+          "分区": "翻唱",
+          "时长": "02:43",
+          "播放": 399072,
+          "点赞": 67610,
+          "投币": 14577,
+          "点赞\/投币": 4.64,
+          "发布时间": "2025-06-04 00:11:17",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1TR7YziE5m"
+        },
+        {
+          "排名": 67,
+          "标题": "芬兰白色死神——西蒙·海耶【少将频道人物志】",
+          "BV号": "BV1AJ7kzHE2E",
+          "UP主": "摸鱼的游戏-KARDS",
+          "UP主ID": 525742885,
+          "分区": "人文历史",
+          "时长": "11:30",
+          "播放": 1437136,
+          "点赞": 33582,
+          "投币": 2903,
+          "点赞\/投币": 11.57,
+          "发布时间": "2025-06-01 20:09:54",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1AJ7kzHE2E"
+        },
+        {
+          "排名": 68,
+          "标题": "五个下饭主播在开局获得巨大优势的情况下，能打过五个绝活主播吗？",
+          "BV号": "BV1rij9zLEcm",
+          "UP主": "清酒好可怜",
+          "UP主ID": 327403407,
+          "分区": "电子竞技",
+          "时长": "13:52",
+          "播放": 1141386,
+          "点赞": 40860,
+          "投币": 8033,
+          "点赞\/投币": 5.09,
+          "发布时间": "2025-06-02 18:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1rij9zLEcm"
+        },
+        {
+          "排名": 69,
+          "标题": "懒人速成大餐，咖喱虾排饭！酥脆多汁，浓郁下饭",
+          "BV号": "BV1noT7zXEHm",
+          "UP主": "留意炫饭吖",
+          "UP主ID": 1201986019,
+          "分区": "日常",
+          "时长": "01:58",
+          "播放": 1498872,
+          "点赞": 86118,
+          "投币": 1165,
+          "点赞\/投币": 73.92,
+          "发布时间": "2025-06-04 16:59:24",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1noT7zXEHm"
+        },
+        {
+          "排名": 70,
+          "标题": "堵博来！",
+          "BV号": "BV1bc74zEEg3",
+          "UP主": "Kristin-_-",
+          "UP主ID": 269440557,
+          "分区": "手机游戏",
+          "时长": "02:53",
+          "播放": 1107591,
+          "点赞": 64303,
+          "投币": 1000,
+          "点赞\/投币": 64.3,
+          "发布时间": "2025-06-03 06:40:36",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1bc74zEEg3"
+        },
+        {
+          "排名": 71,
+          "标题": "《守株待人》",
+          "BV号": "BV1W67CzdEg8",
+          "UP主": "伤心欲茄222",
+          "UP主ID": 3493260618106936,
+          "分区": "搞笑",
+          "时长": "01:31",
+          "播放": 1400988,
+          "点赞": 175153,
+          "投币": 6679,
+          "点赞\/投币": 26.22,
+          "发布时间": "2025-06-02 12:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1W67CzdEg8"
+        },
+        {
+          "排名": 72,
+          "标题": "大司马猫meme",
+          "BV号": "BV1y57Qz1Eqk",
+          "UP主": "艺术家阿克曼",
+          "UP主ID": 451618887,
+          "分区": "电子竞技",
+          "时长": "00:24",
+          "播放": 806989,
+          "点赞": 107615,
+          "投币": 9504,
+          "点赞\/投币": 11.32,
+          "发布时间": "2025-06-03 14:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1y57Qz1Eqk"
+        },
+        {
+          "排名": 73,
+          "标题": "女人只会影响我拔刀的速度",
+          "BV号": "BV17H7PziEGq",
+          "UP主": "一只李狗剩",
+          "UP主ID": 1335451749,
+          "分区": "搞笑",
+          "时长": "00:35",
+          "播放": 2829142,
+          "点赞": 129192,
+          "投币": 1129,
+          "点赞\/投币": 114.43,
+          "发布时间": "2025-06-02 17:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV17H7PziEGq"
+        },
+        {
+          "排名": 74,
+          "标题": "干炒牛河！但是空气炸锅版！",
+          "BV号": "BV1dd78zMErj",
+          "UP主": "老饭骨",
+          "UP主ID": 419872064,
+          "分区": "美食制作",
+          "时长": "04:07",
+          "播放": 761140,
+          "点赞": 30026,
+          "投币": 8587,
+          "点赞\/投币": 3.5,
+          "发布时间": "2025-06-03 18:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1dd78zMErj"
+        },
+        {
+          "排名": 75,
+          "标题": "为何而战《自我》\/\/Qing Madi x 无畏契约-全球版本5周年官方音乐视频",
+          "BV号": "BV1uj7UzmEER",
+          "UP主": "无畏契约",
+          "UP主ID": 147546636,
+          "分区": "MV",
+          "时长": "04:20",
+          "播放": 667399,
+          "点赞": 38213,
+          "投币": 20277,
+          "点赞\/投币": 1.88,
+          "发布时间": "2025-06-02 21:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1uj7UzmEER"
+        },
+        {
+          "排名": 76,
+          "标题": "呆猫兽神1：恶魔果实当零食，我的御兽全是神兽！",
+          "BV号": "BV12R7kz4Ecm",
+          "UP主": "呆猫说漫",
+          "UP主ID": 3494366653975315,
+          "分区": "国产原创相关",
+          "时长": "05:31",
+          "播放": 955678,
+          "点赞": 3953,
+          "投币": 915,
+          "点赞\/投币": 4.32,
+          "发布时间": "2025-06-02 10:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV12R7kz4Ecm"
+        },
+        {
+          "排名": 77,
+          "标题": "妻子在外打工养家，婆家却在伺候小三月子，娘家拎起铁锤霸气开砸",
+          "BV号": "BV1GG7UznEin",
+          "UP主": "人间放映厅",
+          "UP主ID": 525382468,
+          "分区": "影视杂谈",
+          "时长": "09:57",
+          "播放": 1437446,
+          "点赞": 63291,
+          "投币": 1268,
+          "点赞\/投币": 49.91,
+          "发布时间": "2025-06-02 17:35:09",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1GG7UznEin"
+        },
+        {
+          "排名": 78,
+          "标题": "筹备一个月!我们在校园里举办了一场撕名牌大赛!甚至还有老师和宿管……",
+          "BV号": "BV1Ld7Cz1EkX",
+          "UP主": "ChenLewy",
+          "UP主ID": 2062055329,
+          "分区": "日常",
+          "时长": "45:25",
+          "播放": 714934,
+          "点赞": 46174,
+          "投币": 18279,
+          "点赞\/投币": 2.53,
+          "发布时间": "2025-06-02 08:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Ld7Cz1EkX"
+        },
+        {
+          "排名": 79,
+          "标题": "地磁场异常，难怪昨晚失眠了？",
+          "BV号": "BV1sR7QzEETS",
+          "UP主": "中气爱怎么说",
+          "UP主ID": 3546668546919037,
+          "分区": "科学科普",
+          "时长": "01:35",
+          "播放": 1441476,
+          "点赞": 92190,
+          "投币": 1122,
+          "点赞\/投币": 82.17,
+          "发布时间": "2025-06-03 01:26:17",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1sR7QzEETS"
+        },
+        {
+          "排名": 80,
+          "标题": "首尔.广藏小吃 厨子探店¥195",
+          "BV号": "BV1Uo72zrEkt",
+          "UP主": "真探唐仁杰",
+          "UP主ID": 544336675,
+          "分区": "美食侦探",
+          "时长": "03:04",
+          "播放": 1818551,
+          "点赞": 84385,
+          "投币": 1423,
+          "点赞\/投币": 59.3,
+          "发布时间": "2025-06-02 11:48:43",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Uo72zrEkt"
+        },
+        {
+          "排名": 81,
+          "标题": "挑战不带钱从长江源头走到入海口！能活几天？【流浪长江1】",
+          "BV号": "BV1kA71zfEUA",
+          "UP主": "抽象老谢",
+          "UP主ID": 1848976633,
+          "分区": "出行",
+          "时长": "07:54",
+          "播放": 1224636,
+          "点赞": 69729,
+          "投币": 19096,
+          "点赞\/投币": 3.65,
+          "发布时间": "2025-06-02 10:30:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1kA71zfEUA"
+        },
+        {
+          "排名": 82,
+          "标题": "难受",
+          "BV号": "BV16LT7zDEYw",
+          "UP主": "脱缰凯Kk",
+          "UP主ID": 373388923,
+          "分区": "小剧场",
+          "时长": "04:03",
+          "播放": 729831,
+          "点赞": 73059,
+          "投币": 3830,
+          "点赞\/投币": 19.08,
+          "发布时间": "2025-06-04 17:37:34",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV16LT7zDEYw"
+        },
+        {
+          "排名": 83,
+          "标题": "小宇海边也吃上熟食了",
+          "BV号": "BV1Js76zgEjN",
+          "UP主": "小宇-赶海",
+          "UP主ID": 1755608192,
+          "分区": "三农",
+          "时长": "02:23",
+          "播放": 3345708,
+          "点赞": 125211,
+          "投币": 2041,
+          "点赞\/投币": 61.35,
+          "发布时间": "2025-06-01 17:39:24",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Js76zgEjN"
+        },
+        {
+          "排名": 84,
+          "标题": "小星星触摸盲文：《假如给我三天光明》第十三章：“我现在不是哑巴了！”",
+          "BV号": "BV1MmjszLE2a",
+          "UP主": "启明小星星",
+          "UP主ID": 524707238,
+          "分区": "亲子",
+          "时长": "06:00",
+          "播放": 1596439,
+          "点赞": 322891,
+          "投币": 85170,
+          "点赞\/投币": 3.79,
+          "发布时间": "2025-05-24 09:49:50",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1MmjszLE2a"
+        },
+        {
+          "排名": 85,
+          "标题": "【欧美儿童劫】61是儿童节~62就是儿童劫了....",
+          "BV号": "BV1nv7UzvE79",
+          "UP主": "-超级小能猫-",
+          "UP主ID": 1379165407,
+          "分区": "搞笑",
+          "时长": "05:25",
+          "播放": 955447,
+          "点赞": 41373,
+          "投币": 1763,
+          "点赞\/投币": 23.47,
+          "发布时间": "2025-06-02 16:16:49",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1nv7UzvE79"
+        },
+        {
+          "排名": 86,
+          "标题": "这到底是谁发明的，真的巨巨巨好吃",
+          "BV号": "BV1smE9zREep",
+          "UP主": "王师傅教做菜",
+          "UP主ID": 3546758885935557,
+          "分区": "美食制作",
+          "时长": "11:00",
+          "播放": 700305,
+          "点赞": 24009,
+          "投币": 3456,
+          "点赞\/投币": 6.95,
+          "发布时间": "2025-06-02 08:09:56",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1smE9zREep"
+        },
+        {
+          "排名": 87,
+          "标题": "第一次带芬兰家人跨国勇闯德国端午庙会卖中国小吃！老外大排长队疯抢粽子糖葫芦，场面疯狂简直忙不过来！",
+          "BV号": "BV19YT7zuECh",
+          "UP主": "雨琪在芬兰",
+          "UP主ID": 323024456,
+          "分区": "美食记录",
+          "时长": "22:19",
+          "播放": 454390,
+          "点赞": 55907,
+          "投币": 54260,
+          "点赞\/投币": 1.03,
+          "发布时间": "2025-06-04 21:12:25",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV19YT7zuECh"
+        },
+        {
+          "排名": 88,
+          "标题": "它是能利用免疫细胞繁殖的细菌，骨骼和神经系统侵蚀殆尽",
+          "BV号": "BV1uW7DzDE6U",
+          "UP主": "飞瑞曼的科普",
+          "UP主ID": 3546563691416066,
+          "分区": "科学科普",
+          "时长": "06:18",
+          "播放": 736621,
+          "点赞": 48496,
+          "投币": 1612,
+          "点赞\/投币": 30.08,
+          "发布时间": "2025-06-02 19:10:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1uW7DzDE6U"
+        },
+        {
+          "排名": 89,
+          "标题": "鸡爪流拯救了牢玩家，却还要被牢玩家反咬一口",
+          "BV号": "BV11n7YzfEtf",
+          "UP主": "磊哥游戏",
+          "UP主ID": 268941858,
+          "分区": "手机游戏",
+          "时长": "03:17",
+          "播放": 924930,
+          "点赞": 71876,
+          "投币": 3087,
+          "点赞\/投币": 23.28,
+          "发布时间": "2025-06-04 10:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV11n7YzfEtf"
+        },
+        {
+          "排名": 90,
+          "标题": "【逃离恶魔岛】惊天越狱案，史上最难越狱的监狱！",
+          "BV号": "BV1bE7UzjERg",
+          "UP主": "读书的Harry",
+          "UP主ID": 611092306,
+          "分区": "社科·法律·心理",
+          "时长": "20:34",
+          "播放": 1111928,
+          "点赞": 5834,
+          "投币": 1447,
+          "点赞\/投币": 4.03,
+          "发布时间": "2025-06-02 17:51:31",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1bE7UzjERg"
+        },
+        {
+          "排名": 91,
+          "标题": "当班里举办儿童节活动！",
+          "BV号": "BV1E27zzKENU",
+          "UP主": "一串大福",
+          "UP主ID": 393709394,
+          "分区": "搞笑",
+          "时长": "02:03",
+          "播放": 2338401,
+          "点赞": 81901,
+          "投币": 3299,
+          "点赞\/投币": 24.83,
+          "发布时间": "2025-06-01 18:06:24",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1E27zzKENU"
+        },
+        {
+          "排名": 92,
+          "标题": "祝各位考生旗开得胜！",
+          "BV号": "BV1zET7zUEnn",
+          "UP主": "阿星and阿奇",
+          "UP主ID": 230926815,
+          "分区": "搞笑",
+          "时长": "00:30",
+          "播放": 542978,
+          "点赞": 134382,
+          "投币": 12567,
+          "点赞\/投币": 10.69,
+          "发布时间": "2025-06-04 17:36:46",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1zET7zUEnn"
+        },
+        {
+          "排名": 93,
+          "标题": "甲方让我一定要吸引观众",
+          "BV号": "BV1nK7pzbEDx",
+          "UP主": "良心发作的chunchun",
+          "UP主ID": 1590705,
+          "分区": "搞笑",
+          "时长": "03:09",
+          "播放": 1520619,
+          "点赞": 151073,
+          "投币": 6631,
+          "点赞\/投币": 22.78,
+          "发布时间": "2025-06-01 12:00:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1nK7pzbEDx"
+        },
+        {
+          "排名": 94,
+          "标题": "陷入癫狂？印度毒品问题为啥会失控？",
+          "BV号": "BV1nZ74zgEnm",
+          "UP主": "世界见闻录",
+          "UP主ID": 316627722,
+          "分区": "人文历史",
+          "时长": "16:29",
+          "播放": 1071439,
+          "点赞": 50713,
+          "投币": 4317,
+          "点赞\/投币": 11.75,
+          "发布时间": "2025-06-04 18:05:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1nZ74zgEnm"
+        },
+        {
+          "排名": 95,
+          "标题": "对钱没概念也有多可怕",
+          "BV号": "BV1Fe72ztEgS",
+          "UP主": "ssi小许",
+          "UP主ID": 1688701210,
+          "分区": "搞笑",
+          "时长": "00:27",
+          "播放": 2000785,
+          "点赞": 143065,
+          "投币": 840,
+          "点赞\/投币": 170.32,
+          "发布时间": "2025-06-02 13:02:27",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Fe72ztEgS"
+        },
+        {
+          "排名": 96,
+          "标题": "整蛊！把臭豆汁偷偷打进女友的撒尿丸子里…她一咬喷一嘴！",
+          "BV号": "BV1Qs7azTE4z",
+          "UP主": "盖里老哥",
+          "UP主ID": 285571498,
+          "分区": "日常",
+          "时长": "10:01",
+          "播放": 1035409,
+          "点赞": 41411,
+          "投币": 17555,
+          "点赞\/投币": 2.36,
+          "发布时间": "2025-06-03 18:20:16",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Qs7azTE4z"
+        },
+        {
+          "排名": 97,
+          "标题": "荒野冒险！6个up主在雨林饥不择食！结果…【青春旅行团09】",
+          "BV号": "BV1Fm7nzXEfb",
+          "UP主": "老番茄",
+          "UP主ID": 546195,
+          "分区": "综艺",
+          "时长": "42:25",
+          "播放": 3720299,
+          "点赞": 314191,
+          "投币": 249439,
+          "点赞\/投币": 1.26,
+          "发布时间": "2025-05-31 11:30:00",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1Fm7nzXEfb"
+        },
+        {
+          "排名": 98,
+          "标题": "用毛线做的血管妆｜手抖有救了！！",
+          "BV号": "BV13L7UzEEGo",
+          "UP主": "圆脸茄",
+          "UP主ID": 3493128153598655,
+          "分区": "美妆护肤",
+          "时长": "00:36",
+          "播放": 1011832,
+          "点赞": 99627,
+          "投币": 1866,
+          "点赞\/投币": 53.39,
+          "发布时间": "2025-06-02 17:20:43",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV13L7UzEEGo"
+        },
+        {
+          "排名": 99,
+          "标题": "随机空岛，但是加满恐怖mod（上）",
+          "BV号": "BV1ob76ziEax",
+          "UP主": "吾乃肆玖",
+          "UP主ID": 206085081,
+          "分区": "单机游戏",
+          "时长": "30:12",
+          "播放": 734685,
+          "点赞": 28508,
+          "投币": 8105,
+          "点赞\/投币": 3.52,
+          "发布时间": "2025-06-01 19:14:46",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1ob76ziEax"
+        },
+        {
+          "排名": 100,
+          "标题": "哈基宗日常",
+          "BV号": "BV1KN7mzTErg",
+          "UP主": "A哈基仙人",
+          "UP主ID": 253488156,
+          "分区": "日常",
+          "时长": "00:37",
+          "播放": 1094517,
+          "点赞": 116414,
+          "投币": 2381,
+          "点赞\/投币": 48.89,
+          "发布时间": "2025-06-02 11:34:04",
+          "视频链接": "https:\/\/www.bilibili.com\/video\/BV1KN7mzTErg"
+        }
+      ]; // 请在此处粘贴你的100条JSON数据
+    /**********************************************************************/
+
+    if (typeof echarts === 'undefined') { document.getElementById('chart').innerHTML = '<p style="color:red;text-align:center;margin-top:3rem">缺少 echarts.min.js</p>'; throw new Error('ECharts Missing'); }
+    if (DATA.length === 0) {
+      document.getElementById('chart').innerHTML = '<p style="color:red;text-align:center;margin-top:3rem">请在脚本的 DATA 变量中粘贴数据</p>';
+    }
+
+    const chart = echarts.init(document.getElementById('chart'), 'macarons');
+    const buttons = document.querySelectorAll('.btn');
+
+    let catNames = [], catVals = [], dur = [];
+    if (DATA.length > 0) {
+      const tempCatCnt = {};
+      DATA.forEach(v => {
+        tempCatCnt[v['分区']] = (tempCatCnt[v['分区']] || 0) + 1;
+        const p = v['时长'].split(':').map(Number);
+        const s = p.length === 3 ? p[0] * 3600 + p[1] * 60 + p[2] : p[0] * 60 + p[1];
+        dur.push(s / 60);
+      });
+      catNames = Object.keys(tempCatCnt).sort();
+      catVals = catNames.map(name => tempCatCnt[name]);
+    }
+
+    const linClr = new echarts.graphic.LinearGradient(0, 0, 1, 0, [{ offset: 0, color: getVar('--accent1') }, { offset: 1, color: getVar('--accent2') }]);
+    function getVar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+
+    function parseDurationLabel(label, videoDuration) {
+      label = String(label || "");
+      videoDuration = parseFloat(videoDuration);
+      if (isNaN(videoDuration)) return false;
+      if (label.startsWith('<=')) {
+        const limit = parseFloat(label.match(/<=([\d.]+)/)?.[1]);
+        return !isNaN(limit) && videoDuration <= limit;
+      } else if (label.startsWith('>')) {
+        const limit = parseFloat(label.match(/>([\d.]+)/)?.[1]);
+        return !isNaN(limit) && videoDuration > limit;
+      } else {
+        const match = label.match(/([\d.]+)-([\d.]+)/);
+        if (match) {
+          const lower = parseFloat(match[1]);
+          const upper = parseFloat(match[2]);
+          return !isNaN(lower) && !isNaN(upper) && videoDuration > lower && videoDuration <= upper;
+        }
+      }
+      return false;
+    }
+
+    const dayOfWeekLabels = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+    const hourLabels = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0') + ':00');
+
+
+    const opt = {
+      catBar: () => ({ title: { text: '分区出现次数', left: 'center' }, tooltip: { trigger: 'axis' }, xAxis: { type: 'category', data: catNames, axisLabel: { formatter: n => n.split('').join('\n') } }, yAxis: { name: '视频数量' }, series: [{ name: '视频数', type: 'bar', data: catVals, itemStyle: { color: linClr } }] }),
+      catPie: () => ({ title: { text: '分区占比', left: 'center' }, tooltip: { trigger: 'item' }, legend: { type: 'scroll', bottom: 0 }, series: [{ name: '占比', type: 'pie', radius: ['30%', '70%'], roseType: 'area', data: catNames.map((c, i) => ({ name: c, value: catVals[i] })) }] }),
+      top10: () => {
+        const t = DATA.length > 0 ? [...DATA].sort((a, b) => b['播放'] - a['播放']).slice(0, 10).reverse() : [];
+        return {
+          title: { text: '播放量 Top10 视频 (按UP主显示)', left: 'center' },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: { type: 'shadow' },
+            formatter: function (params) {
+              if (!params || params.length === 0) return '';
+              const dataItem = params[0].data;
+              if (dataItem && dataItem.videoInfo) {
+                const video = dataItem.videoInfo;
+                return `<b>UP主: ${params[0].name}</b><br/>
+                            标题: ${video['标题']}<br/>
+                            播放: ${video['播放'].toLocaleString()}<br/>
+                            点赞: ${video['点赞'].toLocaleString()}`;
+              }
+              return `UP主: ${params[0].name}<br/>播放: ${params[0].value.toLocaleString()}`;
+            }
+          },
+          grid: { left: '3%', right: '10%', bottom: '3%', containLabel: true },
+          xAxis: { type: 'value', name: '播放量', nameLocation: 'middle', nameGap: 30, axisLabel: { formatter: function (value) { return value / 10000 + 'w'; } } },
+          yAxis: {
+            type: 'category',
+            data: t.map(v => v['UP主']),
+            axisLabel: {
+              interval: 0,
+              formatter: function (value) {
+                return value && value.length > 8 ? value.slice(0, 8) + '…' : value;
+              }
+            }
+          },
+          series: [{
+            name: '播放量',
+            type: 'bar',
+            data: t.map(video => ({
+              value: video['播放'],
+              videoInfo: video
+            })),
+            itemStyle: { color: getVar('--accent1') },
+            label: { show: true, position: 'right', formatter: function (params) { return (params.value / 10000).toFixed(1) + 'w'; }, color: '#333333', fontSize: 10 }
+          }]
+        };
+      },
+      scatter: () => ({
+        title: { text: '播放 ✕ 点赞', left: 'center' },
+        tooltip: {
+          trigger: 'item',
+          formatter: p => {
+            if (p.value && p.value[3]) {
+              const video = p.value[3];
+              return `标题: ${video['标题'].slice(0, 20)}...<br>UP主: ${video['UP主']}<br>播放:${p.value[0].toLocaleString()}<br>点赞:${p.value[1].toLocaleString()}<br>投币:${p.value[2].toLocaleString()}`;
+            }
+            return '';
+          }
+        },
+        xAxis: { type: 'value', name: '播放量', axisLabel: { formatter: function (value) { if (value >= 10000) return value / 10000 + 'w'; return value; } } },
+        yAxis: { type: 'value', name: '点赞数', axisLabel: { formatter: function (value) { if (value >= 10000) return value / 10000 + 'w'; return value; } } },
+        dataZoom: [{ type: 'inside' }, { type: 'slider' }],
+        series: [{
+          name: '视频',
+          type: 'scatter',
+          symbolSize: v => DATA.length > 0 && v[2] != null ? (Math.log(v[2] + 1) * 2 + 4) : 5,
+          data: DATA.map(v => [v['播放'], v['点赞'], v['投币'], v]),
+          itemStyle: { color: getVar('--accent2') }
+        }]
+      }),
+      bubble: () => ({
+        title: { text: '点赞 ✕ 投币', left: 'center' },
+        tooltip: {
+          trigger: 'item',
+          formatter: p => {
+            if (p.value && p.value[3]) {
+              const video = p.value[3];
+              return `标题: ${video['标题'].slice(0, 20)}...<br>UP主: ${video['UP主']}<br>点赞:${p.value[0].toLocaleString()}<br>投币:${p.value[1].toLocaleString()}<br>播放:${p.value[2].toLocaleString()}`;
+            }
+            return '';
+          }
+        },
+        xAxis: { type: 'value', name: '点赞数', axisLabel: { formatter: function (value) { if (value >= 10000) return value / 10000 + 'w'; return value; } } },
+        yAxis: { type: 'value', name: '投币数', axisLabel: { formatter: function (value) { if (value >= 1000) return value / 1000 + 'k'; return value; } } },
+        dataZoom: [{ type: 'inside' }, { type: 'slider' }],
+        series: [{
+          name: '视频',
+          type: 'scatter',
+          symbolSize: v => DATA.length > 0 && v[2] != null ? (Math.log(v[2] + 1) * 1.5 + 5) : 5,
+          data: DATA.map(v => [v['点赞'], v['投币'], v['播放'], v]),
+          itemStyle: { color: getVar('--accent1') }
+        }]
+      }),
+      duration: () => {
+        let m = 0, bins = 12, size = 1, hist = new Array(bins).fill(0);
+        if (dur.length > 0) {
+          m = Math.max(...dur);
+          size = Math.ceil(m / bins) || 1;
+          dur.forEach(d_val => {
+            let binIndex = Math.floor(d_val / size);
+            if (binIndex >= bins) binIndex = bins - 1;
+            if (binIndex < 0) binIndex = 0;
+            hist[binIndex]++;
+          });
+        }
+        return {
+          title: { text: '时长分布 (分钟)', left: 'center' },
+          tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+          xAxis: {
+            type: 'category',
+            data: hist.map((_, i) => `${(i * size).toFixed(0)}-${((i + 1) * size).toFixed(0)}`),
+            name: '时长区间 (分钟)'
+          },
+          yAxis: { name: '视频数量' },
+          series: [{ name: '视频数', type: 'bar', data: hist, itemStyle: { color: getVar('--accent2') } }]
+        };
+      },
+      publishTimeHeatmap: () => {
+        const heatmapDataRaw = Array(24).fill(null).map(() => Array(7).fill(0));
+        let maxValue = 0;
+        if (DATA.length > 0) {
+          DATA.forEach(v => {
+            try {
+              const date = new Date(v['发布时间']);
+              const day = date.getDay();
+              const hour = date.getHours();
+              heatmapDataRaw[hour][day]++;
+              if (heatmapDataRaw[hour][day] > maxValue) {
+                maxValue = heatmapDataRaw[hour][day];
+              }
+            } catch (e) { /* ignore */ }
+          });
+        }
+        const heatmapSeriesData = [];
+        for (let hour = 0; hour < 24; hour++) {
+          for (let day = 0; day < 7; day++) {
+            if (heatmapDataRaw[hour][day] > 0) {
+              heatmapSeriesData.push([day, hour, heatmapDataRaw[hour][day]]);
+            }
+          }
+        }
+        return {
+          title: { text: '热门视频发布时间分布', subtext: '按星期几与小时统计视频数量', left: 'center' },
+          tooltip: {
+            position: 'top',
+            formatter: function (params) {
+              if (!params.value) return ''; // Guard against undefined params.value
+              return `${dayOfWeekLabels[params.value[0]]} ${hourLabels[params.value[1]]}<br/>视频数量: ${params.value[2]}`;
+            }
+          },
+          grid: { height: '65%', top: '15%', left: '5%', right: '10%', bottom: '10%', containLabel: true }, // Adjusted grid
+          xAxis: { type: 'category', data: dayOfWeekLabels, splitArea: { show: true }, name: '星期', nameLocation: 'middle', nameGap: 25 },
+          yAxis: { type: 'category', data: hourLabels, splitArea: { show: true }, name: '小时', nameLocation: 'middle', nameGap: 35 },
+          visualMap: {
+            min: 0,
+            max: maxValue || 1,
+            calculable: true,
+            orient: 'vertical',
+            left: 'right',
+            top: '15%', // Align with heatmap grid
+            bottom: '10%',
+            inRange: {
+              color: [getVar('--heatmap-color-start'), getVar('--accent1'), getVar('--heatmap-color-end')]
+            }
+          },
+          series: [{
+            name: '视频数量',
+            type: 'heatmap',
+            data: heatmapSeriesData,
+            label: { show: true, formatter: function (params) { return params.value[2] > 0 ? params.value[2] : ''; } },
+            emphasis: { itemStyle: { shadowBlur: 10, shadowColor: 'rgba(0, 0, 0, 0.5)' } }
+          }]
+        };
+      },
+      categoryEngagementRates: () => {
+        const catRates = {};
+        let currentDisplayCatNames = [];
+        let avgLikeRates = [], avgCoinRates = [];
+        if (DATA.length > 0) {
+          catNames.forEach(cat => catRates[cat] = { totalLikes: 0, totalPlays: 0, totalCoins: 0, count: 0 });
+          DATA.forEach(v => {
+            if (catRates[v['分区']]) {
+              catRates[v['分区']].totalLikes += v['点赞'];
+              catRates[v['分区']].totalPlays += v['播放'];
+              catRates[v['分区']].totalCoins += v['投币'];
+              catRates[v['分区']].count += 1;
+            }
+          });
+          for (const cat of catNames) {
+            if (catRates[cat] && catRates[cat].count > 0) {
+              currentDisplayCatNames.push(cat);
+              const playsVal = catRates[cat].totalPlays;
+              avgLikeRates.push(playsVal > 0 ? parseFloat((catRates[cat].totalLikes / playsVal * 100).toFixed(2)) : 0);
+              avgCoinRates.push(playsVal > 0 ? parseFloat((catRates[cat].totalCoins / playsVal * 100).toFixed(2)) : 0);
+            }
+          }
+        }
+        return {
+          title: { text: '分区平均互动效率', left: 'center' },
+          tooltip: {
+            trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: params => {
+              if (!params || params.length === 0) return '';
+              let res = params[0].name + '<br/>';
+              params.forEach(p => { res += `${p.seriesName}: ${p.value}%<br/>`; });
+              return res;
+            }
+          },
+          legend: { data: ['平均点赞率', '平均投币率'], bottom: 5 }, // Adjusted bottom
+          grid: { bottom: '18%', containLabel: true }, // Added to give space for rotated labels & legend
+          xAxis: {
+            type: 'category',
+            data: currentDisplayCatNames,
+            axisLabel: {
+              interval: 0,
+              rotate: 30,
+              fontSize: 10,
+              formatter: function (value) {
+                return value.length > 7 ? value.substring(0, 6) + '...' : value;
+              }
+            }
+          },
+          yAxis: { type: 'value', name: '百分比 (%)' },
+          series: [
+            { name: '平均点赞率', type: 'bar', data: avgLikeRates, itemStyle: { color: getVar('--accent1') } },
+            { name: '平均投币率', type: 'bar', data: avgCoinRates, itemStyle: { color: getVar('--accent2') } }
+          ]
+        };
+      },
+      likeCoinRatioDist: () => {
+        let ratios = [], m = 0, bins = 10, size = 1, hist = new Array(bins).fill(0), binLabels = [];
+        if (DATA.length > 0) {
+          ratios = DATA.map(v => v['点赞/投币']).filter(r => isFinite(r) && r !== null && r >= 0);
+          if (ratios.length > 0) {
+            m = Math.max(...ratios);
+            size = Math.ceil(m / bins) || 1;
+            ratios.forEach(d_val => {
+              let binIndex = Math.floor(d_val / size);
+              if (binIndex >= bins) binIndex = bins - 1;
+              if (binIndex < 0) binIndex = 0;
+              hist[binIndex]++;
+            });
+          }
+        }
+        for (let i = 0; i < bins; i++) {
+          if (i === bins - 1 && m >= (i + 1) * size) {
+            binLabels.push(`${(i * size).toFixed(1)}+`);
+          } else {
+            binLabels.push(`${(i * size).toFixed(1)}-${((i + 1) * size).toFixed(1)}`);
+          }
+        }
+        if (ratios.length > 0 && m === 0 && size === 1 && binLabels.length > 0) { binLabels[0] = "0.0-1.0"; }
+        else if (binLabels.length === 0 && bins > 0) {
+          for (let i = 0; i < bins; i++) binLabels.push(`${(i * size).toFixed(1)}-${((i + 1) * size).toFixed(1)}`);
+        }
+        return {
+          title: { text: '点赞/投币 比率分布', left: 'center' },
+          tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+          xAxis: { type: 'category', data: binLabels, name: '点赞/投币 比率区间' },
+          yAxis: { name: '视频数量' },
+          series: [{ name: '视频数', type: 'bar', data: hist, itemStyle: { color: linClr } }]
+        };
+      },
+      publishDayPlays: () => {
+        const dayPlays = Array(7).fill(null).map(() => ({ totalPlays: 0, count: 0 }));
+        if (DATA.length > 0) {
+          DATA.forEach(v => {
+            try {
+              const date = new Date(v['发布时间']);
+              const dayIndex = date.getDay();
+              dayPlays[dayIndex].totalPlays += v['播放'];
+              dayPlays[dayIndex].count += 1;
+            } catch (e) { console.error("Error parsing date: ", v['发布时间'], e); }
+          });
+        }
+        const avgPlaysByDay = dayPlays.map(d => d.count > 0 ? Math.round(d.totalPlays / d.count) : 0);
+        return {
+          title: { text: '按发布日统计的平均播放量', left: 'center' },
+          tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+          xAxis: { type: 'category', data: dayOfWeekLabels, name: '星期' },
+          yAxis: { type: 'value', name: '平均播放量', axisLabel: { formatter: function (value) { if (value >= 10000) return value / 10000 + 'w'; return value; } } },
+          series: [{ name: '平均播放量', type: 'bar', data: avgPlaysByDay, itemStyle: { color: getVar('--accent1') } }]
+        };
+      },
+      durationAvgPlays: () => {
+        const durationBinsConfig = [
+          { label: '<=1 分钟', test: d_val => d_val <= 1 }, { label: '1-3 分钟', test: d_val => d_val > 1 && d_val <= 3 },
+          { label: '3-5 分钟', test: d_val => d_val > 3 && d_val <= 5 }, { label: '5-10 分钟', test: d_val => d_val > 5 && d_val <= 10 },
+          { label: '10-30 分钟', test: d_val => d_val > 10 && d_val <= 30 }, { label: '>30 分钟', test: d_val => d_val > 30 }
+        ];
+        const initializedBins = durationBinsConfig.map(b => ({ ...b, plays: 0, count: 0 }));
+        if (DATA.length > 0 && dur.length > 0) {
+          DATA.forEach((v, i) => {
+            const videoDur = dur[i];
+            const playCount = v['播放'];
+            for (const bin of initializedBins) {
+              if (bin.test(videoDur)) { bin.plays += playCount; bin.count++; break; }
+            }
+          });
+        }
+        const binLabels = initializedBins.map(b => b.label);
+        const avgPlaysInBins = initializedBins.map(b => b.count > 0 ? Math.round(b.plays / b.count) : 0);
+        return {
+          title: { text: '不同时长区间的平均播放量', left: 'center' },
+          tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+          xAxis: { type: 'category', data: binLabels, name: '时长区间', axisLabel: { rotate: 15, fontSize: 10 } }, // Rotate slightly if labels are long
+          yAxis: { type: 'value', name: '平均播放量', axisLabel: { formatter: function (value) { if (value >= 10000) return value / 10000 + 'w'; return value; } } },
+          grid: { bottom: '15%', containLabel: true },
+          series: [{ name: '平均播放量', type: 'bar', data: avgPlaysInBins, itemStyle: { color: getVar('--accent2') } }]
+        };
+      }
+    };
+
+    if (DATA.length > 0) { chart.setOption(opt.catBar()); }
+
+    buttons.forEach(b => b.onclick = () => {
+      if (DATA.length === 0) { alert("请先粘贴数据后再查看图表。"); return; }
+      buttons.forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      chart.setOption(opt[b.dataset.chart](), true);
+    });
+    window.addEventListener('resize', () => { if (DATA.length > 0) chart.resize() });
+
+    const modal = document.getElementById('videoModal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const singleDetailView = document.getElementById('modalSingleVideoDetail');
+    const listDetailView = document.getElementById('modalVideoListDetail');
+    const listContainer = document.getElementById('modalVideoList');
+
+    closeModalBtn.onclick = () => modal.style.display = "none";
+    window.onclick = event => { if (event.target == modal) modal.style.display = "none"; }
+
+    function showVideoModal(itemOrList, isList = false, listTitle = "视频列表") {
+      if (!itemOrList) return;
+      modal.style.display = "block";
+
+      if (isList) {
+        singleDetailView.style.display = 'none';
+        listDetailView.style.display = 'block';
+        listContainer.innerHTML = '';
+        document.getElementById('modalListTitle').textContent = `${listTitle} (${itemOrList.length} 项)`;
+        if (itemOrList.length === 0) {
+          listContainer.innerHTML = '<li>此分类/区间下暂无视频数据。</li>';
+        } else {
+          itemOrList.forEach(video => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                      <strong>${video['标题']}</strong>
+                      <span class="up-name">UP: ${video['UP主']}</span> - 
+                      <span class="play-count">播放: ${video['播放'].toLocaleString()}</span>
+                      <a href="${video['视频链接']}" target="_blank" class="list-video-link">观看</a>
+                  `;
+            listContainer.appendChild(li);
+          });
+        }
+      } else {
+        singleDetailView.style.display = 'block';
+        listDetailView.style.display = 'none';
+        const video = itemOrList;
+        document.getElementById('modalVideoTitleHeadingSingle').textContent = "视频详情";
+        document.getElementById('modalVideoTitle').textContent = video['标题'];
+        document.getElementById('modalUpName').textContent = video['UP主'];
+        document.getElementById('modalPlays').textContent = video['播放'].toLocaleString();
+        document.getElementById('modalLikes').textContent = video['点赞'].toLocaleString();
+        document.getElementById('modalCoins').textContent = video['投币'].toLocaleString();
+        document.getElementById('modalDuration').textContent = video['时长'];
+        document.getElementById('modalCategory').textContent = video['分区'];
+        document.getElementById('modalPublishTime').textContent = video['发布时间'];
+        document.getElementById('modalLink').href = video['视频链接'];
+      }
+    }
+
+    chart.on('click', function (params) {
+      if (DATA.length === 0) return;
+      let videoData = null; let videosToList = []; let isListDisplay = false;
+      let listDisplayTitle = "视频列表";
+      const currentChartName = document.querySelector('.btn.active').dataset.chart;
+      try {
+        if (params.componentType === 'series' || params.seriesType === 'heatmap' || params.componentType === 'yAxis' || params.componentType === 'xAxis') {
+          switch (currentChartName) {
+            case 'top10': if (params.data && params.data.videoInfo) videoData = params.data.videoInfo; break;
+            case 'scatter': case 'bubble': if (params.value && params.value[3]) videoData = params.value[3]; break;
+            case 'catBar': case 'catPie': case 'categoryEngagementRates':
+              listDisplayTitle = `"${params.name}" 分区视频`;
+              videosToList = DATA.filter(v => v['分区'] === params.name); isListDisplay = true; break;
+            case 'duration': {
+              listDisplayTitle = `时长 "${params.name}" 分钟的视频`;
+              const currentDurations = dur;
+              let m_dur = 0;
+              if (currentDurations.length > 0) m_dur = Math.max(...currentDurations);
+              const bins_dur = 12;
+              const size_dur = Math.ceil(m_dur / bins_dur) || 1;
+              const binIndex_dur = params.dataIndex;
+              const lowerBound_dur = binIndex_dur * size_dur; const upperBound_dur = (binIndex_dur + 1) * size_dur;
+              videosToList = DATA.filter((vid, idx) => {
+                const videoDurVal = currentDurations[idx];
+                if (binIndex_dur === bins_dur - 1 && m_dur >= upperBound_dur) return videoDurVal >= lowerBound_dur;
+                return videoDurVal >= lowerBound_dur && videoDurVal < upperBound_dur;
+              }); isListDisplay = true; break;
+            }
+            case 'publishTimeHeatmap':
+              if (params.componentType === 'series' && params.seriesType === 'heatmap' && params.value) {
+                const dayIndex = params.value[0];
+                const hourVal = params.value[1];
+                listDisplayTitle = `发布于 ${dayOfWeekLabels[dayIndex]} ${hourLabels[hourVal]} 的视频`;
+                videosToList = DATA.filter(v => {
+                  try {
+                    const d = new Date(v['发布时间']);
+                    return d.getDay() === dayIndex && d.getHours() === hourVal;
+                  } catch (e) { return false; }
+                });
+                isListDisplay = true;
+              }
+              break;
+            case 'likeCoinRatioDist': {
+              listDisplayTitle = `点赞/投币比 "${params.name}" 的视频`;
+              const currentRatios = DATA.map(v_ => v_['点赞/投币']).filter(r_ => isFinite(r_) && r_ !== null && r_ >= 0);
+              if (currentRatios.length > 0) {
+                let m_ratio = Math.max(...currentRatios);
+                if (!isFinite(m_ratio)) m_ratio = 0;
+                const bins_ratio = 10;
+                const size_ratio = Math.ceil(m_ratio / bins_ratio) || 1;
+                const binIndex_ratio = params.dataIndex;
+                const lowerBound_ratio = binIndex_ratio * size_ratio;
+                const upperBound_ratio = (binIndex_ratio + 1) * size_ratio;
+                videosToList = DATA.filter(vid => {
+                  const ratioVal = vid['点赞/投币'];
+                  if (!isFinite(ratioVal) || ratioVal === null || ratioVal < 0) return false;
+                  if (binIndex_ratio === bins_ratio - 1 && m_ratio >= upperBound_ratio) return ratioVal >= lowerBound_ratio;
+                  return ratioVal >= lowerBound_ratio && ratioVal < upperBound_ratio;
+                });
+              }
+              isListDisplay = true; break;
+            }
+            case 'publishDayPlays': {
+              listDisplayTitle = `"${params.name}" 发布的视频`;
+              const dayMapReverse = { '周日': 0, '周一': 1, '周二': 2, '周三': 3, '周四': 4, '周五': 5, '周六': 6 };
+              const targetDayIndex = dayMapReverse[params.name];
+              if (typeof targetDayIndex !== 'undefined') {
+                videosToList = DATA.filter(v => { try { return new Date(v['发布时间']).getDay() === targetDayIndex; } catch (e) { return false; } });
+              }
+              isListDisplay = true; break;
+            }
+            case 'durationAvgPlays': {
+              listDisplayTitle = `时长为 "${params.name}" 的视频`;
+              videosToList = DATA.filter((vid, idx) => parseDurationLabel(params.name, dur[idx]));
+              isListDisplay = true; break;
+            }
+          }
+        }
+      } catch (e) { console.error("Error processing chart click event:", e, params); }
+      if (isListDisplay) { showVideoModal(videosToList, true, listDisplayTitle); }
+      else if (videoData) { showVideoModal(videoData, false); }
+    });
+
+    const catSel = document.getElementById('catSel');
+    const textSearchInput = document.getElementById('textSearchInput');
+    const tbl = document.getElementById('dataTable');
+
+    function renderTable(listToRender) {
+      const tableBody = tbl.querySelector('tbody') || tbl.appendChild(document.createElement('tbody'));
+      if (!tbl.querySelector('thead')) {
+        const thead = document.createElement('thead');
+        thead.innerHTML = '<tr><th>分区</th><th>标题</th><th>UP主</th><th>播放</th><th>点赞</th><th>投币</th></tr>';
+        tbl.insertBefore(thead, tableBody);
+      }
+      if (listToRender.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">无匹配数据</td></tr>'; return;
+      }
+      tableBody.innerHTML = listToRender.map(v =>
+        `<tr data-bv="${v['BV号']}">
+           <td>${v['分区']}</td>
+           <td title="${v['标题']}">${v['标题'].slice(0, 20) + (v['标题'].length > 20 ? '…' : '')}</td>
+           <td title="${v['UP主']}">${v['UP主'] ? (v['UP主'].length > 10 ? v['UP主'].slice(0, 10) + '…' : v['UP主']) : ''}</td>
+           <td>${v['播放'].toLocaleString()}</td>
+           <td>${v['点赞'].toLocaleString()}</td>
+           <td>${v['投币'].toLocaleString()}</td>
+         </tr>`
+      ).join('');
+    }
+
+    function applyTableFilters() {
+      if (DATA.length === 0) { renderTable([]); return; }
+      const category = catSel.value;
+      const searchTerm = textSearchInput.value.toLowerCase().trim();
+      let filteredList = DATA;
+      if (category !== '全部') { filteredList = filteredList.filter(v => v['分区'] === category); }
+      if (searchTerm) {
+        filteredList = filteredList.filter(v =>
+          v['标题'].toLowerCase().includes(searchTerm) ||
+          (v['UP主'] && v['UP主'].toLowerCase().includes(searchTerm))
+        );
+      }
+      renderTable(filteredList);
+    }
+
+    if (DATA.length > 0) {
+      catSel.innerHTML = '<option value="全部">全部分区</option>' + catNames.map(c => `<option value="${c}">${c}</option>`).join('');
+    } else {
+      catSel.innerHTML = '<option value="全部">全部分区 (无数据)</option>';
+    }
+
+    catSel.onchange = applyTableFilters;
+    textSearchInput.oninput = applyTableFilters;
+
+    tbl.addEventListener('click', function (event) {
+      if (DATA.length === 0) return;
+      let targetRow = event.target.closest('tr');
+      if (targetRow && targetRow.parentElement.tagName === 'TBODY' && targetRow.dataset.bv) {
+        const bv = targetRow.dataset.bv;
+        const video = DATA.find(v => v['BV号'] === bv);
+        if (video) { showVideoModal(video, false); }
+      }
+    });
+    applyTableFilters(); 
+  </script>
+</body>
+
+</html></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Sei Shu</div><div class="author-info-description">: P</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/ANeutrin0" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:921011787@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/05/program0605/" title="Python程序设计-B站热门视频数据可视化">Python程序设计-B站热门视频数据可视化</a><time datetime="2025-06-05T13:03:53.000Z" title="发表于 2025-06-05 21:03:53">2025-06-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/30/AI%E9%9F%B3%E4%B9%90%E4%BD%9C%E4%B8%9A%EF%BC%882%EF%BC%89-%20%E5%9B%9E%E6%96%87%E8%AF%97/" title="网页抓取与数据处理-回文诗">网页抓取与数据处理-回文诗</a><time datetime="2025-05-30T06:03:53.000Z" title="发表于 2025-05-30 14:03:53">2025-05-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/30/AI%E9%9F%B3%E4%B9%90%E4%BD%9C%E4%B8%9A%EF%BC%881%EF%BC%89-%20%E7%BA%AF%E9%9F%B3%E4%B9%90/" title="Python程序设计-AI音乐">Python程序设计-AI音乐</a><time datetime="2025-05-30T05:50:58.000Z" title="发表于 2025-05-30 13:50:58">2025-05-30</time></div></div></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/06/">
+            <span class="card-archive-list-date">
+              六月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/05/">
+            <span class="card-archive-list-date">
+              五月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">3</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-06-05T13:26:05.177Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Sei Shu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="/js/custom.js"></script><script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('page-header');
+    if (!header || header.querySelector('video')) return;
+    header.insertAdjacentHTML('afterbegin', `
+      <video autoplay muted loop playsinline preload="none"
+             style="position:absolute;inset:0;
+                    width:100%;height:100%;
+                    object-fit:cover;z-index:1;">
+        <source src="/videos/header-20s.mp4" type="video/mp4">
+      </video>
+    `);
+  });
+</script>
+<script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
