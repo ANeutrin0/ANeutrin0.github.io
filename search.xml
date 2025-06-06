@@ -12,6 +12,16 @@
       
       
       
+        <tags>
+            
+            <tag> 作业 </tag>
+            
+            <tag> Python </tag>
+            
+            <tag> Python程序设计 </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -25,6 +35,16 @@
       
       
       
+        <tags>
+            
+            <tag> 作业 </tag>
+            
+            <tag> Python </tag>
+            
+            <tag> 网页抓取与数据处理 </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -37,6 +57,16 @@
         <content type="html"><![CDATA[<h1 id="AI音乐生成演示"><a href="#AI音乐生成演示" class="headerlink" title="AI音乐生成演示"></a>AI音乐生成演示</h1><p>通过使用pretty_midi库，我们实现了自动作曲功能，可以生成具有不同风格的MIDI音乐。</p><div style="text-align:center">  <video controls         playsinline webkit-playsinline x5-playsinline         preload="metadata"         width="640"         style="max-width:100%;background:#000;">    <source src="/videos/ai-music.mp4" type="video/mp4">    您的浏览器不支持 HTML5 视频。  </video></div><h1 id="省流版演示"><a href="#省流版演示" class="headerlink" title="省流版演示"></a>省流版演示</h1><p>这是一个简短版本的演示视频，直接展示最后的成品。</p><div style="text-align:center">  <video controls         playsinline webkit-playsinline x5-playsinline         preload="metadata"         width="640"         style="max-width:100%;background:#000;">    <source src="/videos/final-music.mp4" type="video/mp4">    您的浏览器不支持 HTML5 视频。  </video></div>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> 作业 </tag>
+            
+            <tag> Python </tag>
+            
+            <tag> Python程序设计 </tag>
+            
+        </tags>
       
     </entry>
     
