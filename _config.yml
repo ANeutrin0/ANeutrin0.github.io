@@ -1,0 +1,216 @@
+locale: "en-US"
+site_theme: "air"
+title: "Zhu Ji"
+title_separator: "-"
+name: &name "Zhu Ji"
+description: &description "Academic homepage of Zhu Ji, an undergraduate student in Computational Communication at Communication University of China."
+url: "https://aneutrin0.github.io"
+baseurl: ""
+repository: "ANeutrin0/ANeutrin0.github.io"
+
+author:
+  avatar: "github-avatar.jpg"
+  name: "Zhu Ji"
+  bio: "Undergraduate in Computational Communication. Research Intern at Microsoft Research Asia."
+  location: "Beijing, China"
+  employer: "Communication University of China"
+  email: "zhuji@cuc.edu.cn"
+  github: "ANeutrin0"
+
+publication_category:
+  conferences:
+    title: "Conference Papers"
+  manuscripts:
+    title: "Manuscripts"
+
+teaser:
+breadcrumbs: false
+words_per_minute: 160
+future: false
+read_more: "disabled"
+talkmap_link: false
+
+comments:
+  provider:
+
+atom_feed:
+  hide: true
+  path:
+
+google_site_verification:
+bing_site_verification:
+alexa_site_verification:
+yandex_site_verification:
+
+twitter:
+  username:
+facebook:
+  username:
+  app_id:
+  publisher:
+og_image:
+og_description:
+
+social:
+  type: Person
+  name: "Zhu Ji"
+  links:
+    - "https://github.com/ANeutrin0"
+
+analytics:
+  provider: "false"
+  google:
+    tracking_id:
+
+include:
+  - _pages
+  - files
+
+exclude:
+  - "*.sublime-project"
+  - "*.sublime-workspace"
+  - .asset-cache
+  - .bundle
+  - .github
+  - .jekyll-assets-cache
+  - .sass-cache
+  - assets/js/_main.js
+  - assets/js/plugins
+  - assets/js/vendor
+  - CHANGELOG
+  - Capfile
+  - config
+  - Dockerfile
+  - Gemfile
+  - Gruntfile.js
+  - gulpfile.js
+  - LICENSE
+  - local
+  - log
+  - node_modules
+  - package.json*
+  - Rakefile
+  - README.md
+  - tmp
+  - vendor
+
+keep_files:
+  - .git
+  - .svn
+
+encoding: "utf-8"
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
+
+markdown: kramdown
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+
+collections:
+  publications:
+    output: true
+    permalink: /:collection/:path/
+  teaching:
+    output: true
+    permalink: /:collection/:path/
+  portfolio:
+    output: true
+    permalink: /:collection/:path/
+  talks:
+    output: true
+    permalink: /:collection/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: false
+      share: false
+      related: false
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: true
+  - scope:
+      path: ""
+      type: publications
+    values:
+      layout: single
+      author_profile: true
+      share: false
+      comments: false
+  - scope:
+      path: ""
+      type: teaching
+    values:
+      layout: single
+      author_profile: true
+      share: false
+      comments: false
+  - scope:
+      path: ""
+      type: portfolio
+    values:
+      layout: single
+      author_profile: true
+      share: false
+      comments: false
+  - scope:
+      path: ""
+      type: talks
+    values:
+      layout: talk
+      author_profile: true
+      share: false
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+permalink: /:categories/:title/
+timezone: Asia/Shanghai
+
+plugins:
+  - jekyll-feed
+  - jekyll-gist
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-redirect-from
+  - jemoji
+
+whitelist:
+  - jekyll-feed
+  - jekyll-gist
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-redirect-from
+  - jemoji
+
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
+
+compress_html:
+  clippings: all
+  ignore:
+    envs: development
